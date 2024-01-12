@@ -145,18 +145,21 @@ For the first year following the Capital Contract's bootsrtapping period, the to
 —-------------
 
 ## Compute Budget
-The Morpheus network needs to determine how much MOR it is willing to spend on compute in a given period (such as each day), this is referred to as the Compute Budget. Each period, up to this amount of MOR may be spent by the Compute Contract. This number multiplied by the MOR price gives us a dollar budget for acquisition of Compute each day. 
-
+The Morpheus network needs to determine how much MOR it is willing to spend on compute in a given period (**such as each day, hour or minute**), this is referred to as the Compute Budget. Each period, up to this amount of MOR may be spent by the Compute Contract. This number multiplied by the MOR price gives us a dollar budget for acquisition of Compute each period.
 
 Open question 1: How should the Compute Budget be determined? The simplest idea is to set Compute Budget = emissions into the Compute Contract. This way, Compute Contract would never run out of tokens. But then what to do with the unused tokens, since the maximum would never be utilized each day? These could, perhaps, be granted pro-rata to current MOR token holders. Or, they could be burned. Or, they could remain unused in the Compute Contract, to be spent in the future on Compute (but then this opens more governance questions). 
 
+Open Question 2: **Edit: The flip side of the token econonmic model here is that network throughput is limited by the price of MOR. If MOR goes way up, the network can purchase many more IPS tokens, and the price of IPS tokens long term should go toward the cost of electricity plus some premium if you're using a new proprietary model. If the MOR price goes down, and IPS tokens are near the cost of electricity, the network can't fulfill all the queries on the network since in dollar terms the compute budget for a period is too low. This may be addressed partially since if people really want to use the network, they're buying MOR, and it drives the price up, allowing for more usage. This issue is that if the compute budget period computation is not frequent enough, increased demand for MOR (in terms of token price) won't translate fast enough to network capacity (compute budget). To address this potential issue, the compute budget should be determined on an hourly (or more frequent) basis vs a daily format. On the other side, if the network sees a massive surge in demand in a day, it could literally pause all requests if it runs out of the available IST tokens it could purchase. By making the compute budget computation more frequent, as people ape MOR to use the network more, this can allow for more network usage in real time. 
+**
 
 ## AccessRate
 The Morpheus network allocates the scarce resource of LT production through the concept of the “AccessRate”. The AccessRate determines how many LTs each MOR token can access per day. Unused access does not accrue. AccessRate is always displayed as a quantity of LTs per 1 MOR token (such as 1 MOR = 15,000 LT). AccessRate is determined in part by MaxLT, which quantifies the maximum number of LTs the network can purchase per day.
 
 AccessRate = (1/MOR Supply) * MaxLT
-MaxLT = ((MOR Compute Budget * MOR Price) / LT Price) * 1000
+MaxLT* = ((MOR Compute Budget * MOR Price) / LT Price) * 1000
 UserMax = MaxLT * User MOR balance
+
+*When computing the MaxLT, the equation includes the MOR price. It may be worth smoothing this out in the equation (7, 14 or 30 day moving average) to prevent wild swings in how much compute the network can handle. Probably the same thinking with IST price (may need to be in more real time like an average of different bids from different providers that day). 
 
 
 ### Example Assumptions: 
@@ -177,6 +180,10 @@ If the Compute Budget is 3,000 MOR, and each is worth $20, then the network can 
 That potential production of 30 billion LT’s is allocated by MOR balance, pro rata. Assume there are 10,000,000 MOR in existence. A user with 500 MOR tokens (0.005% of total) could freely access up to 1.5m LTs that day. 
 So long as Compute Budget is at or below the emissions level, the Compute Contract cannot run out of MOR.  
 In reality, most tokens will sit in wallets and exchanges, and only a fraction will be used to demand the LT production.
+
+
+
+
 
 ## Notes
 * Fundamental demand for MOR comes from Users who wish to have access to generative AI and other forms of compute on the Morpheus network. 
